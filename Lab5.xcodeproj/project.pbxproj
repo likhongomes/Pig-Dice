@@ -15,6 +15,7 @@
 		6EA1E38E243576F7000CC6FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA1E38C243576F7000CC6FD /* LaunchScreen.storyboard */; };
 		6EA1E399243576F7000CC6FD /* Lab5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA1E398243576F7000CC6FD /* Lab5Tests.swift */; };
 		6EA1E3A4243576F7000CC6FD /* Lab5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA1E3A3243576F7000CC6FD /* Lab5UITests.swift */; };
+		6EA1E3B224357802000CC6FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA1E3B124357802000CC6FD /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		6EA1E39F243576F7000CC6FD /* Lab5UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lab5UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EA1E3A3243576F7000CC6FD /* Lab5UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lab5UITests.swift; sourceTree = "<group>"; };
 		6EA1E3A5243576F7000CC6FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA1E3B124357802000CC6FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				6EA1E381243576F0000CC6FD /* AppDelegate.swift */,
 				6EA1E383243576F0000CC6FD /* SceneDelegate.swift */,
+				6EA1E3B124357802000CC6FD /* ViewController.swift */,
 				6EA1E385243576F0000CC6FD /* ContentView.swift */,
 				6EA1E387243576F7000CC6FD /* Assets.xcassets */,
 				6EA1E38C243576F7000CC6FD /* LaunchScreen.storyboard */,
@@ -269,6 +272,7 @@
 			files = (
 				6EA1E382243576F0000CC6FD /* AppDelegate.swift in Sources */,
 				6EA1E384243576F0000CC6FD /* SceneDelegate.swift in Sources */,
+				6EA1E3B224357802000CC6FD /* ViewController.swift in Sources */,
 				6EA1E386243576F0000CC6FD /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
