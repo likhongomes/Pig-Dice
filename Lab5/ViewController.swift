@@ -40,8 +40,8 @@ class ViewController: UIViewController {
     
     
     
-    let gameColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-    let disableColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    let gameColor = #colorLiteral(red: 0.9189423323, green: 0.3425189853, blue: 0.4192157984, alpha: 1)
+    let disableColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +65,15 @@ class ViewController: UIViewController {
         
         player = 1
     }
+    
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        imageView.layer.add(animation, forKey: "shake")
+    }
+    
     
     override var canBecomeFirstResponder: Bool {
         get {
@@ -118,7 +127,7 @@ class ViewController: UIViewController {
             let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .heavy)
             impactFeedbackgenerator.prepare()
             impactFeedbackgenerator.impactOccurred()
-            
+            shake()
             if player == 1 {
                 if turn == 1 {
                     turn = 0
@@ -184,7 +193,7 @@ class ViewController: UIViewController {
         if player == 1 {
             player = 2
             if tempScore != nil { player1Score += tempScore! }
-            gameStatusTextView.text = "\(player1Score) points scored! Player 2's turn"
+            gameStatusTextView.text = "\(tempScore!) points scored! Player 2's turn"
             player1ScoreLabel.text = String(player1Score)
             player1ProgressView.setProgress(Float(player1Score) * 0.01, animated: true)
             tempScore = 0
@@ -201,7 +210,7 @@ class ViewController: UIViewController {
         } else {
             player = 1
             if tempScore != nil { player2Score += tempScore! }
-            gameStatusTextView.text = "\(player2Score) points scored! Player 1's turn"
+            gameStatusTextView.text = "\(tempScore!) points scored! Player 1's turn"
             player2ScoreLabel.text = String(player2Score)
             player2ProgressView.setProgress(Float(player2Score) * 0.01, animated: true)
             tempScore = 0
@@ -284,8 +293,8 @@ class ViewController: UIViewController {
         player1PseudoProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         player1PseudoProgressView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         player1PseudoProgressView.topAnchor.constraint(equalTo: player1NameLabel.bottomAnchor, constant: 5).isActive = true
-        player1PseudoProgressView.tintColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
-        player1PseudoProgressView.trackTintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        player1PseudoProgressView.tintColor = #colorLiteral(red: 0.9587948918, green: 0.6680087447, blue: 0.7277810574, alpha: 1)
+        
         
         view.addSubview(player1ProgressView)
         player1ProgressView.translatesAutoresizingMaskIntoConstraints = false
@@ -331,8 +340,7 @@ class ViewController: UIViewController {
         player2PseudoProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         player2PseudoProgressView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         player2PseudoProgressView.topAnchor.constraint(equalTo: player2NameLabel.bottomAnchor, constant: 5).isActive = true
-        player2PseudoProgressView.tintColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
-        
+        player2PseudoProgressView.tintColor = #colorLiteral(red: 0.9587948918, green: 0.6680087447, blue: 0.7277810574, alpha: 1)
         view.addSubview(player2ProgressView)
         player2ProgressView.translatesAutoresizingMaskIntoConstraints = false
         player2ProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
@@ -358,4 +366,18 @@ class ViewController: UIViewController {
         gameStatusTextView.text = ""
     }
     
+}
+
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
+    }
 }
