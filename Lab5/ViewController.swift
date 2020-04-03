@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
+    //MARK: All the variables
     let imageView = UIImageView()
     let gameStatusTextView = UITextView()
     
@@ -43,6 +46,7 @@ class ViewController: UIViewController {
     let gameColor = #colorLiteral(red: 0.9189423323, green: 0.3425189853, blue: 0.4192157984, alpha: 1)
     let disableColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     
+    //MARK: Main Function
     override func viewDidLoad() {
         super.viewDidLoad()
         self.becomeFirstResponder()
@@ -62,10 +66,10 @@ class ViewController: UIViewController {
         player2ScoreLabelSetup()
         player2NameLabelSetup()
         player2ProgressViewSetup()
-        
         player = 1
     }
     
+    ///Shake animation for the dice when it's rolled
     func shake() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
@@ -88,6 +92,7 @@ class ViewController: UIViewController {
         }
     }
     
+    ///This initializes the game
     func startGame(){
         tempScore = 0
         continueButton.isEnabled = false
@@ -95,6 +100,7 @@ class ViewController: UIViewController {
         rollButton.isEnabled = true
     }
     
+    ///Image view for the dice
     func imageViewSetup(){
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -118,6 +124,7 @@ class ViewController: UIViewController {
         rollButton.addTarget(self, action: #selector(rollButtonTapped), for: .touchUpInside)
     }
     
+    ///Functionality when the roll button is tapped
     @objc func rollButtonTapped(){
         
         if gameStarted {
@@ -134,13 +141,11 @@ class ViewController: UIViewController {
                     player = 2
                     tempScore = 0
                     player = 2
-                    //holdButton.isEnabled = false
                     rollButton.isEnabled = false
                     continueButton.isEnabled = true
                     gameStatusTextView.text = "Lose turn! Player 2's turn"
                 } else {
                     tempScore! += Double(turn)
-                    //holdButton.isEnabled = true
                     
                 }
                 player1PseudoProgressView.setProgress(Float((player1Score + tempScore!) * 0.01), animated: true)
@@ -151,13 +156,11 @@ class ViewController: UIViewController {
                     turn = 0
                     tempScore = 0
                     player = 1
-                    //holdButton.isEnabled = false
                     rollButton.isEnabled = false
                     continueButton.isEnabled = true
                     gameStatusTextView.text = "Lose turn! Player 1's turn"
                 } else {
                     tempScore! += Double(turn)
-                    //holdButton.isEnabled = true
                 }
                 player2PseudoProgressView.setProgress(Float((player2Score + tempScore!) * 0.01), animated: true)
             }
@@ -186,6 +189,7 @@ class ViewController: UIViewController {
         holdButton.addTarget(self, action: #selector(holdButtonTapped), for: .touchUpInside)
     }
     
+    ///Functionality when the hold button is tapped
     @objc func holdButtonTapped() {
         holdButton.isEnabled = false
         rollButton.isEnabled = false
@@ -224,6 +228,7 @@ class ViewController: UIViewController {
         
     }
     
+    ///Stak that holds bottom two buttons
     func buttonStackSetup() {
         view.addSubview(buttonStack)
         buttonStack.addArrangedSubview(rollButton)
@@ -238,7 +243,7 @@ class ViewController: UIViewController {
         buttonStack.spacing = 10
     }
     
-    //MARK: Coninious Button
+    //MARK: Continuous Button
     func continueButtonSetup() {
         view.addSubview(continueButton)
         continueButton.translatesAutoresizingMaskIntoConstraints = false
@@ -255,11 +260,14 @@ class ViewController: UIViewController {
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
     }
     
+    ///Function that handles continious button tapped
     @objc func continueButtonTapped(){
         gameStarted = true
         startGame()
     }
     
+    
+    //MARK: Bunch of UI element setups
     func player1ScoreLabelSetup(){
         view.addSubview(player1ScoreLabel)
         player1ScoreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -365,19 +373,5 @@ class ViewController: UIViewController {
         gameStatusTextView.textAlignment = .center
         gameStatusTextView.text = ""
     }
-    
-}
 
-extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        self.clipsToBounds = true  // add this to maintain corner radius
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(color.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.setBackgroundImage(colorImage, for: forState)
-        }
-    }
 }
